@@ -1,0 +1,43 @@
+***************************队列***************************
+
+1. 队列也是一种线性结构
+
+2. 相比数组，队列对应的操作是数组的子集
+
+3. 只能从一端（队尾）添加元素，从另一端（队首）取出元素
+
+4. 队列是一种先进先出的数据结构
+
+5. ArrayQueue 复杂度分析
+
+   void enqueue(e)             O(1)          均摊
+
+   E dequeue()               * O(n) *
+
+   E getFront()                O(1)
+
+   int getSize()               O(1)
+
+   boolean isEmpty()           O(1)
+
+
+   ArrayQueue优化：LoopQueue  复杂度分析：均为O(1)
+        注意：需要添加头指针和尾指针，实现逻辑稍复杂
+
+   -----------------------------------------
+
+   LinkedListQueue 复杂度分析：   全都是O(1)，且没有均摊，**注意：需要添加头指针和尾指针！**
+
+   void enqueue(e)             O(1)
+
+   E dequeue()                 O(1)
+
+   E getFront()                O(1)
+
+   int getSize()               O(1)
+
+   boolean isEmpty()           O(1)
+
+
+
+
