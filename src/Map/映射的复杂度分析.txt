@@ -1,0 +1,24 @@
+********************映射的复杂度**********************
+1.            LinkedListMap           BSTMap          平均                          最差
+
+增  add            O(1)                   O(h)          O(logN)     O(N)
+
+删  remove         O(n)                   O(h)          O(logN)     O(N)
+
+改  set            O(n)                   O(h)          O(logN)     O(N)
+
+查  contains       O(n)                   O(h)          O(logN)     O(N)
+
+查  get            O(n)                   O(h)          O(logN)     O(N)
+
+**BSTMap 的时间复杂度  优于  LinkedListMap**
+
+
+2. 有序映射中的键具有顺序性        基于搜索树（Java中是红黑树）实现
+
+   有序映射中的键没有顺序性        基于哈希表实现
+
+
+3. 多重映射
+
+   多重映射中的键可以重复

@@ -1,7 +1,9 @@
-package Set;
+package Map;
 
-import java.io.*;
-import java.nio.charset.StandardCharsets;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
@@ -23,19 +25,13 @@ public class FileOperation {
 
 		// 文件读取
 		Scanner scanner = null;
-		StringBuilder sb = new StringBuilder();
 
 		try {
 			File file = new File(filename);
 			if (file.exists()) {
 				FileInputStream fis = new FileInputStream(file);
-				BufferedInputStream buf = new BufferedInputStream(fis);
-				byte[] bytes = new byte[1024];
-				int length = buf.read(bytes);
-				while (length != -1){
-					sb.append(new String(bytes, StandardCharsets.UTF_8));
-					length = buf.read(bytes);
-				}
+				scanner = new Scanner(new BufferedInputStream(fis), "UTF-8");
+				scanner.useLocale(Locale.ENGLISH);
 			} else {
 				return false;
 			}
@@ -48,26 +44,23 @@ public class FileOperation {
 		// 简单分词
 		// 这个分词方式相对简陋，没有考虑文本处理中的特殊问题
 		// 这里只做demo用
-		if (sb.length() > 0) {
-			String contents = sb.toString();
-			System.out.println("**contents length: " + contents.length() + "**");
-//			System.out.println(contents);
+		if (scanner.hasNextLine()) {
+			// 从开头一次读入
+			String contents = scanner.useDelimiter("\\A").next(); // first of the input
+			System.out.println("--contents length: " + contents.length() + "--");
 
 			int start = firstCharacterIndex(contents, 0);
 			for (int i = start + 1; i <= contents.length();) {
 				if (i == contents.length() || !Character.isLetter(contents.charAt(i))) {
 					String word = contents.substring(start, i).toLowerCase();
 					words.add(word);
-
-					start = firstCharacterIndex(contents, i);
+					start = firstCharacterIndex(contents, i + 1);
 					i = start + 1;
 				} else {
 					i++;
 				}
 			}
 		}
-
-//		scanner.close();
 
 		return true;
 	}
@@ -79,7 +72,6 @@ public class FileOperation {
 				return i;
 			}
 		}
-
 		return s.length();
 	}
 
